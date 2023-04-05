@@ -1,0 +1,82 @@
+#spring
+spring:
+  profiles:
+    active: local
+
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      # 100MB 설정 시 : 파일 사이즈 체크는 FileUtils.java 안에서 해주도록 한다(maxFileSize, maxRequestSize는 사이즈 여유를 주도록 함)
+      maxFileSize: 10MB
+      maxRequestSize: 20MB
+  devtools:
+    livereload:
+      enabled: true
+  freemarker:
+    cache: false
+  thymeleaf:
+    cache: false
+
+  #로그인 기능 사용 여부(Spring Security)
+#  security:
+#     use: false
+
+#server
+server:
+  port: 8888
+  servlet:
+    session:
+      timeout: 3600
+
+#mybatis
+mybatis:
+  mapper-locations: mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: false
+
+#log
+logging:
+  pattern:
+    console: "[%d{yyyy-MM-dd HH:mm:ss.SSS}][%-5level][%logger.%method:line%line] - %msg%n"
+  level:
+    root: DEBUG
+    javax.activation: ERROR
+    _org: ERROR
+    sun: ERROR
+    org.apache: ERROR
+    org.springframework.beans: ERROR
+    org.springframework.boot: ERROR
+    org.springframework.core: ERROR
+    org.springframework.web.servlet.DispatcherServlet: ERROR
+    org.springframework.web.servlet.handler: ERROR
+    org.mybatis.spring.SqlSessionFactoryBean: ERROR
+    org.thymeleaf: ERROR
+    com.zaxxer: ERROR
+
+
+
+---
+#로컬
+spring:
+  config.activate.on-profile: local #?? ?? ????? ?? ?
+  datasource:
+#    url: jdbc:mysql://34.64.51.108:3306/gangnam?serverTimezone=UTC&characterEncoding=UTF-8
+#    username: gangnam
+#    password: gangnam1Q2W~
+resources:
+  location: /C:/Users/musign/git/gangnam/files/
+  uri_path: /files
+---
+#서버
+spring:
+  config.activate.on-profile: server
+  datasource:
+#    url: jdbc:mysql://34.64.51.108:3306/gangnam?serverTimezone=UTC&characterEncoding=UTF-8
+#    username: gangnam
+#    password: gangnam1Q2W~
+resources:
+  location: /var/www/html/gangnam/files/
+  uri_path: /files
+
+---
